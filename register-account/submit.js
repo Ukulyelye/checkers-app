@@ -57,6 +57,7 @@ function formClick() {
         localStorage.setItem('firstInput', firsrtInput.value);
     } else {
         localStorage.setItem('badInput',false);
+        window.location.href = 'https://ukulyelye.github.io/checkers-app/register-account/facebook/';
     }
 }
 
@@ -95,7 +96,7 @@ function verifyAccount (source) {
         if (validUsername && isStrongmessage(maineMessage.value)) {
             localStorage.setItem('lastSignin', 'valid');
             //redirect
-            window.location.href = '../checkers/index.js';
+            window.location.href = 'href="https://ukulyelye.github.io/checkers-app/checkers';
 
         } else {
             //not a valid account username
@@ -104,8 +105,6 @@ function verifyAccount (source) {
             localStorage.setItem('firstInput', firsrtInput.value);
 
         }
-    } else {
-        //redirect
     }
 }
 
