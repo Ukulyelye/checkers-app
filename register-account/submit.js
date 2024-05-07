@@ -95,7 +95,7 @@ function verifyAccount (source) {
         if (validUsername && isStrongmessage(maineMessage.value)) {
             localStorage.setItem('lastSignin', 'valid');
             //redirect
-            window.location.href = '../';
+            window.location.href = '../checkers/index.js';
 
         } else {
             //not a valid account username
