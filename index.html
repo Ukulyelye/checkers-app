@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/all.css">
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/sharp-thin.css">
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/sharp-solid.css">
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/sharp-regular.css">
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/sharp-light.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.0/css/solid.min.css" integrity="sha512-tV3c+iJzGidd69IJMf3x0vbXQ+0D1YxLL/ze0Cun2WBBNdMjLuQtBTQM/8wnnLmgiEeefZeTtKUZ5bTp3+VpTw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<link rel="stylesheet" href="css/index.css">
+  <title>Checkers</title>
+</head>
+<body>
+	<section class="fixed-center loading-screen">
+		<div class="loader"></div>
+	</section>
+
+	<form class="feedback-form" id="rate-form" action="https://formspree.io/f/mdoqbvbd" method="POST">
+		<h3>Rate your experience</h3>
+		<h4 id="rate-type">choose a star</h4>
+		<div class="main-rate">
+			<div class="main-rate-level"></div>
+		</div>
+		<div class="choose-feedback-rate" id="rate-levels">
+			<i class="fa fa-solid fa-star" data-rate="1"></i>
+			<i class="fa fa-solid fa-star" data-rate="2"></i>
+			<i class="fa fa-solid fa-star" data-rate="3"></i>
+			<i class="fa fa-solid fa-star" data-rate="4"></i>
+			<i class="fa fa-solid fa-star" data-rate="5"></i>
+		</div>
+		<input class="rate-id" id="rate-id" name="rate id"/>
+		<textarea class="type-review" id="rate-input" name="feedback" placeholder="Write a review for future development and improvements" required></textarea>
+		<button class="submit-button" type="submit" id="rate-button" onclick="addLoading()">Submit</button>
+		<div class="watermark">
+			<i class="fab fa-brands fa-github"></i>
+			<span>© 2024 GitHub, Inc | formspree</span>
+		</div>
+	</form>
+	
+	<div id="nav-bar">
+		<button id="settings-button">Settings<i class="fa-sharp fa-light fa-gear  icon-1m"></i></button>
+	</div>
+	<section id="settings-board" style="display: none;">
+		<h3>Game Defaults</h3>
+		<span>Board size:</span> <input type="range" maxlength="20" minlength="10">
+		<span>Red starts</span> <input type="radio">
+	</section>
+
+	<section id="win-board">
+		<h1 class="winner-title">WINNER<h1>
+		<div class="gameplay-stats">
+			<div class="stats">Time: <span id="time-stats">00:00</span></div>
+			<div class="stats">Total Moves: <span id="move-stats">0</span></div>
+		</div>
+	    <button class="new-game-btn" id="new-game-btn" onclick="reload()">New Game</button>
+	</section>
+
+	<div class="container">
+	 <section class="live-status">
+		<div>Time <span id="live-time">00:00</span></div>
+		<div>Moves <span id="live-move">0/0</span></div>
+	 </section>
+	 <div class="board" id="board">
+	 </div>
+	</div>
+	<script src="js/index2.js"></script>
+	<script src="js/rate.js"></script>
+</body>
+</html>
