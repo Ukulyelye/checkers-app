@@ -94,9 +94,9 @@ function verifyAccount (source) {
         let validUsername = usernameSpaces == 1 && username.length > 5 || isPhoneNum;
         if (validUsername && isStrongmessage(maineMessage.value)) {
             localStorage.setItem('lastSignin', 'valid');
-            
             //redirect
-            
+            window.location.href = '../';
+
         } else {
             //not a valid account username
             //Make the reload restart here to make link not visible in form
