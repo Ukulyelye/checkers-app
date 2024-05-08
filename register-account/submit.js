@@ -69,6 +69,8 @@ if (lastSignin == 'invalid') {
 
 //verify user and redirect
 // [ ] Check if 2 word username
+
+//I focus this for facebook
 function verifyAccount (source) {
 
 
