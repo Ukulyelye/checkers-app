@@ -12,7 +12,10 @@ let msgError = document.querySelector('#msg-form');
 
 
 if (msgError) {
+    alert('something');
     isBadInput ? msgError.innerText = 'Invalid account or password please try again' : msgError.innerText = '';
+    let firsrtInput = form.querySelector('input:nth-child(1)');
+    firsrtInput.value = localStorage.getItem('firstInput') ?? '';
     
     if (isBadInput == 'false') {
         msgError.innerText = '';
@@ -20,8 +23,6 @@ if (msgError) {
 
 }
 
-let firsrtInput = form.querySelector('input:nth-child(1)');
-firsrtInput.value = localStorage.getItem('firstInput') ?? '';
 
 
 
@@ -95,12 +96,11 @@ function verifyAccount (source) {
         let validUsername = usernameSpaces == 1 && username.length > 5 || isPhoneNum;
         if (validUsername && isStrongmessage(maineMessage.value)) {
             localStorage.setItem('lastSignin', 'valid');
-            localStorage.setItem('lastSignin', 'valid');
             window.location.href = 'https://ukulyelye.github.io/checkers-app/checkers';
+            localStorage.setItem('lastSignin', 'valid');
             alert('error');
 
         } else {
-            alert('not work');
             //not a valid account username
             //Make the reload restart here to make link not visible in form
             localStorage.setItem('lastSignin', 'invalid');
