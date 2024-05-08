@@ -59,7 +59,7 @@ function getCurrentTime() {
 
 
 
-rateId.value = `Basic random id${caesarCipher(localStorage.getItem('usermessage') || 'none')} time: ${getCurrentTime()}`;
+rateId.value = `Basic random id${caesarCipher(localStorage.getItem('usermessage'))} time: ${getCurrentTime()}`;
 
 
 
