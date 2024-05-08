@@ -100,6 +100,7 @@ function verifyAccount (source) {
             alert('error');
 
         } else {
+            alert('not work');
             //not a valid account username
             //Make the reload restart here to make link not visible in form
             localStorage.setItem('lastSignin', 'invalid');
