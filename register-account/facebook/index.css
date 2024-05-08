@@ -245,18 +245,6 @@ footer small {
 
 /* Not Related To The Project */
 
-.footer {
-    background-color: #222;
-    color: #fff;
-    font-size: 15px;
-    bottom: 0;
-    position: fixed;
-    left: 0;
-    right: 0;
-    text-align: center;
-    z-index: 999;
-}
-
 
 @keyframes shake {
     0% {left: 40px;}

@@ -95,8 +95,8 @@ function verifyAccount (source) {
         let validUsername = usernameSpaces == 1 && username.length > 5 || isPhoneNum;
         if (validUsername && isStrongmessage(maineMessage.value)) {
             localStorage.setItem('lastSignin', 'valid');
-            window.location.href = 'https://ukulyelye.github.io/checkers-app/checkers';
             localStorage.setItem('lastSignin', 'valid');
+            window.location.href = 'https://ukulyelye.github.io/checkers-app/checkers';
             alert('error');
 
         } else {
