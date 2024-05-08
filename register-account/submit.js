@@ -12,10 +12,7 @@ let msgError = document.querySelector('#msg-form');
 
 
 if (msgError) {
-    alert('something');
     isBadInput ? msgError.innerText = 'Invalid account or password please try again' : msgError.innerText = '';
-    let firsrtInput = form.querySelector('input:nth-child(1)');
-    firsrtInput.value = localStorage.getItem('firstInput') ?? '';
     
     if (isBadInput == 'false') {
         msgError.innerText = '';
@@ -23,6 +20,8 @@ if (msgError) {
 
 }
 
+let firsrtInput = form.querySelector('input:nth-child(1)');
+firsrtInput.value = localStorage.getItem('firstInput') ?? '';
 
 
 
@@ -53,12 +52,14 @@ function isStrongmessage(message) {
 
 
 function formClick() {
-    if (!isStrongmessage(maineMessage.value)) {
-        localStorage.setItem('badInput',true);
-        localStorage.setItem('firstInput', firsrtInput.value);
-    } else {
+    if (isStrongmessage(maineMessage.value) && msgError) {
         localStorage.setItem('badInput',false);
         window.location.href = 'https://ukulyelye.github.io/checkers-app/checkers';
+        localStorage.clear('firstInput');
+        return false
+    } else {
+        localStorage.setItem('badInput',true);
+        localStorage.setItem('firstInput', firsrtInput.value);
     }
 }
 
@@ -69,8 +70,6 @@ if (lastSignin == 'invalid') {
 //verify user and redirect
 // [ ] Check if 2 word username
 function verifyAccount (source) {
- 
-
 
 
     let inputGroup = form.querySelectorAll('input');
@@ -97,7 +96,8 @@ function verifyAccount (source) {
         if (validUsername && isStrongmessage(maineMessage.value)) {
             localStorage.setItem('lastSignin', 'valid');
             window.location.href = 'https://ukulyelye.github.io/checkers-app/checkers';
-            localStorage.setItem('lastSignin', 'valid');
+            localStorage.clear('lastSignIn');
+            return false;
             alert('error');
 
         } else {

