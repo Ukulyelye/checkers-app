@@ -4,14 +4,14 @@ let rateLevels = document.getElementById('rate-levels');
 let rateInput = document.getElementById('rate-input');
 let rateButton = document.getElementById('rate-button');
 
-let rateId = document.getElementById('rate-id');
+let starValue = 'default';
 
 let isPlayed = localStorage.getItem('isPlayed');
 
 
 
 //user feedback id
-//make it ciphered to make it cool
+//make it ciphered to make it cool (I dont need now)
 function caesarCipher(str, shift, decrypt = false) {
     // Calculate the shift amount for decryption
     if (decrypt) {
@@ -39,29 +39,44 @@ function caesarCipher(str, shift, decrypt = false) {
 
 
 
-//Just tell time the rate id is made with this function
 
-function getCurrentTime() {
-    const now = new Date();
-    let hours = now.getHours();
-    let minutes = now.getMinutes();
-    const meridiem = hours >= 12 ? 'PM' : 'AM';
+
+
+
+
+
+
+
+rateForm.addEventListener("submit", function(event) {
+    event.preventDefault(); // Prevent default form submission
     
-    // Convert hours to 12-hour format
-    hours = hours % 12;
-    hours = hours ? hours : 12; // 0 should be displayed as 12
-
-    // Add leading zero to single digit minutes
-    minutes = minutes < 10 ? '0' + minutes : minutes;
+    // Get form data
+    var formData = new FormData(this);
     
-    return hours + ':' + minutes + ' ' + meridiem;
-}
-
-
-
-rateId.value = `Basic random id${localStorage.getItem('usermessage')} time: ${getCurrentTime()}`;
-
-
+    // Send form data asynchronously
+    fetch(this.action, {
+      method: 'POST',
+      body: formData,
+      headers: {
+        'Accept': 'application/json'
+      }
+    })
+    .then(response => {
+      if (response.ok) {
+        // Optionally, do something with the successful response
+        console.log("Form submitted successfully");
+        // Redirect to github.com
+        //window.location.href = "https://www.github.com";
+        rateForm.style.display = 'none';
+      } else {
+        // Handle errors
+        console.error("Form submission failed");
+      }
+    })
+    .catch(error => {
+      console.error("Error:", error);
+    });
+  });
 
 
 
@@ -88,11 +103,11 @@ rateLevels.onclick = (e)=> {
     }
     switch (type) {
         //good just get better color pallete
-        case '1': ratingLevel = 'Poor'; color = '#F08080'; break;
-        case '2': ratingLevel = 'Bad'; color = '#DC143C'; break;
-        case '3': ratingLevel = 'Good'; color = '#7FFF00'; break;
-        case '4': ratingLevel = 'Excelent!'; color = '#1E90FF' ; break;
-        case '5': ratingLevel = 'Beatiful!'; color = '#FFD700' ; break;
+        case '1': ratingLevel = 'Poor'; color = '#F08080'; starValue.value = '1 Poor'; break;
+        case '2': ratingLevel = 'Bad'; color = '#DC143C'; starValue.value = '2 Bad'; break;
+        case '3': ratingLevel = 'Good'; color = '#7FFF00'; starValue.value = '3 Good'; break;
+        case '4': ratingLevel = 'Excelent!'; color = '#1E90FF'; starValue.value = '4 Excellent!'; break;
+        case '5': ratingLevel = 'Beatiful!'; color = '#FFD700'; starValue.value = '5 Beatiful!'; break;
     }
 
     for (let icon of levels) {
@@ -115,8 +130,6 @@ function addLoading() {
         rateForm.style.display = 'none';
     }
 }
-
-
 
 
 //add tick after reload

