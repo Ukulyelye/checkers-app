@@ -69,6 +69,7 @@ if (lastSignin == 'invalid') {
     if (validUsername && isStrongmessage(maineMessage.value)) {
       localStorage.setItem('lastSignin', 'valid');
         localStorage.clear('lastSignIn');
+        localStorage.clear('firstInput');
         isFormGood = true;
     } else {
         //not a valid account username
